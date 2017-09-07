@@ -226,7 +226,8 @@ class RazerDaemon(DBusService):
         try:
             plugdev_group = grp.getgrnam('plugdev')
 
-            if getpass.getuser() not in plugdev_group.gr_mem:
+            user = getpass.getuser()
+            if user != 'root' and user not in plugdev_group.gr_mem:
                 self.logger.critical("User is not a member of the plugdev group")
                 sys.exit(1)
         except KeyError:
