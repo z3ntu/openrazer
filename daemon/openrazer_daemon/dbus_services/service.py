@@ -64,7 +64,7 @@ class DBusService(dbus.service.Object):
 
     Allows for dynamic method adding
     """
-    BUS_TYPE = 'session'
+    BUS_TYPE = 'system'
 
     def __init__(self, bus_name, object_path):
         """
