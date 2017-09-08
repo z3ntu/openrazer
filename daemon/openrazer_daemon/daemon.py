@@ -233,8 +233,11 @@ class RazerDaemon(DBusService):
         except KeyError:
             self.logger.warning("Could not check if user is a member of the plugdev group. Continuing...")
 
-        self._screensaver_monitor = ScreensaverMonitor(self)
-        self._screensaver_monitor.monitoring = self._config.getboolean('Startup', 'devices_off_on_screensaver')
+        try:
+            self._screensaver_monitor = ScreensaverMonitor(self)
+            self._screensaver_monitor.monitoring = self._config.getboolean('Startup', 'devices_off_on_screensaver')
+        except dbus.exceptions.DBusException as e:
+            self.logger.error("Failed to init ScreensaverMonitor: {}".format(e))
 
         self._razer_devices = DeviceCollection()
         self._load_devices(first_run=True)
