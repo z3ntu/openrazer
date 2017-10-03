@@ -10,8 +10,24 @@ export DH_OPTIONS
 BUILD_DIR=$(CURDIR)/build
 DEB_DESTDIR=$(CURDIR)/debian/tmp/
 
+release_ver := $(shell lsb_release --release --short)
+
+# Use xdg_install for 16.04 as a workaround for https://bugs.launchpad.net/ubuntu/+source/chromium-browser/+bug/1689825
+ifeq ($(release_ver),16.04)
+	autostart_method := xdg_install
+else
+	autostart_method := install-systemd
+endif
+
+override_dh_gencontrol:
+ifeq ($(release_ver),16.04)
+	dh_gencontrol -- -Vopenrazer:dbus-user-session=
+else
+	dh_gencontrol -- -Vopenrazer:dbus-user-session=dbus-user-session
+endif
+
 override_dh_auto_install:
-	make ubuntu_install DESTDIR=$(DEB_DESTDIR)
+	make ubuntu_install $(autostart_method) DESTDIR=$(DEB_DESTDIR)
 
 override_dh_auto_build:
 	dh_auto_build -- lp_all
