@@ -26,6 +26,9 @@ else
 	dh_gencontrol -- -Vopenrazer:dbus-user-session=dbus-user-session
 endif
 
+override_dh_install:
+	dh_install --package=openrazer-daemon etc/xdg/autostart/openrazer-daemon.desktop
+
 override_dh_auto_install:
 	make ubuntu_install $(autostart_method) DESTDIR=$(DEB_DESTDIR)
 
