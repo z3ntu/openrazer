@@ -30,9 +30,8 @@ override_dh_install:
 ifeq ($(release_ver),16.04)
 	dh_install --package=openrazer-daemon etc/xdg/autostart/openrazer-daemon.desktop
 else
-	dh_install --package=openrazer-daemon \
-		usr/share/dbus-1/services/org.razer.service usr/share/dbus-1/services/org.razer.service \
-		usr/lib/systemd/user/openrazer-daemon.service usr/lib/systemd/user/openrazer-daemon.service
+	dh_install --package=openrazer-daemon usr/share/dbus-1/services/org.razer.service
+	dh_install --package=openrazer-daemon usr/lib/systemd/user/openrazer-daemon.service
 endif
 
 override_dh_auto_install:
