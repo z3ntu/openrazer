@@ -27,6 +27,9 @@ eval $(dbus-launch --sh-syntax)
 # Compile the kernel driver
 ./$dir/compile-driver.sh
 
+# Run the python tests with pytest
+./$dir/run-pytest.sh
+
 # Setup the fake driver
 ./$dir/setup-fakedriver.sh
 
