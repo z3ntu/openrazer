@@ -253,6 +253,24 @@ static ssize_t razer_attr_write_test(struct device *dev, struct device_attribute
 }
 
 /**
+ * Read device file "test"
+ */
+static ssize_t razer_attr_read_test(struct device *dev, struct device_attribute *attr, char *buf)
+{
+    struct usb_interface *intf = to_usb_interface(dev->parent);
+    struct usb_device *usb_dev = interface_to_usbdev(intf);
+    struct razer_report report = get_razer_report(0x03, 0x89, 0x02 /*???*/);
+    struct razer_report response_report;
+
+    response_report = razer_send_payload(usb_dev, &report);
+
+    return sprintf(buf, "something.%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
+        response_report.arguments[0], response_report.arguments[1], response_report.arguments[2], response_report.arguments[3], response_report.arguments[4], response_report.arguments[5],
+           response_report.arguments[6], response_report.arguments[7], response_report.arguments[8], response_report.arguments[9], response_report.arguments[10], response_report.arguments[11],
+           response_report.arguments[12], response_report.arguments[13], response_report.arguments[14], response_report.arguments[15]);
+}
+
+/**
  * Write device file "mode_none"
  *
  * No effect is activated whenever this file is written to
@@ -1855,7 +1873,7 @@ static ssize_t razer_attr_read_backlight_led_state(struct device *dev, struct de
 
 static DEVICE_ATTR(version,                   0440, razer_attr_read_version,               NULL);
 static DEVICE_ATTR(firmware_version,          0440, razer_attr_read_get_firmware_version,  NULL);
-static DEVICE_ATTR(test,                      0220, NULL,                                  razer_attr_write_test);
+static DEVICE_ATTR(test,                      0660, razer_attr_read_test,                  razer_attr_write_test);
 static DEVICE_ATTR(poll_rate,                 0660, razer_attr_read_poll_rate,             razer_attr_write_poll_rate);
 static DEVICE_ATTR(dpi,                       0660, razer_attr_read_mouse_dpi,             razer_attr_write_mouse_dpi);
 
