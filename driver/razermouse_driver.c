@@ -265,9 +265,9 @@ static ssize_t razer_attr_read_test(struct device *dev, struct device_attribute 
     response_report = razer_send_payload(usb_dev, &report);
 
     return sprintf(buf, "something.%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
-        response_report.arguments[0], response_report.arguments[1], response_report.arguments[2], response_report.arguments[3], response_report.arguments[4], response_report.arguments[5],
-           response_report.arguments[6], response_report.arguments[7], response_report.arguments[8], response_report.arguments[9], response_report.arguments[10], response_report.arguments[11],
-           response_report.arguments[12], response_report.arguments[13], response_report.arguments[14], response_report.arguments[15]);
+                   response_report.arguments[0], response_report.arguments[1], response_report.arguments[2], response_report.arguments[3], response_report.arguments[4], response_report.arguments[5],
+                   response_report.arguments[6], response_report.arguments[7], response_report.arguments[8], response_report.arguments[9], response_report.arguments[10], response_report.arguments[11],
+                   response_report.arguments[12], response_report.arguments[13], response_report.arguments[14], response_report.arguments[15]);
 }
 
 /**
