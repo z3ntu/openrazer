@@ -43,7 +43,7 @@ MODULE_LICENSE(DRIVER_LICENSE);
 // M1-M5 is F13-F17
 #define RAZER_MACRO_KEY 188 // 188 = KEY_F18
 #define RAZER_GAME_KEY 189 // 189 = KEY_F19
-#define RAZER_BRIGHTNESS_DOWN 190 // 190 = KEY_F20
+#define RAZER_BRIGHTNESS_DOWN 150 // --------190 = KEY_F20
 // F21 is used for touchpad disable, F22,F23 is touchpad enable
 #define RAZER_BRIGHTNESS_UP 194 // 194 = KEY_F24
 #define RAZER_FN 195
